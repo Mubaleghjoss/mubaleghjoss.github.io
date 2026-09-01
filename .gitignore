@@ -1,0 +1,32 @@
+# deps & build
+node_modules/
+dist/
+.astro/
+.vercel/
+.netlify/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# generated artifacts (dibuat saat build, jangan di-commit)
+public/cv/*.pdf
+dist/
+artifacts/
+*.pdf.tmp
+
+# os / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# logs
+npm-debug.log*
+*.log

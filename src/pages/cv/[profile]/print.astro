@@ -1,0 +1,13 @@
+---
+import CVDocument from '../../../components/CVDocument.astro';
+import CVLayout from '../../../layouts/CVLayout.astro';
+import { cvProfiles } from '../../../data';
+
+export function getStaticPaths() {
+  return cvProfiles.map((cvProfile) => ({ params: { profile: cvProfile.id }, props: { cvProfile } }));
+}
+const { cvProfile } = Astro.props;
+---
+<CVLayout title={`CV ${cvProfile.label} — Putra Kamulyan`}>
+  <CVDocument cvProfile={cvProfile} />
+</CVLayout>

@@ -1,0 +1,21 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main class="cv-shell"><slot /></main>
+    <div class="container no-print" style="margin-bottom: 2rem; text-align: center"><a class="button button--secondary" href="/">Kembali ke portfolio</a></div>
+  </body>
+</html>

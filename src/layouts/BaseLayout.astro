@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import { profile } from '../data/profile';
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  path = '/',
+} = Astro.props;
+const canonical = new URL(path, site.url).toString();
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="author" content={site.author} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="id_ID" />
+    <title>{title}</title>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: profile.name,
+      jobTitle: profile.headline,
+      url: site.url,
+      email: profile.email,
+      sameAs: [profile.github, profile.linkedin],
+    })} />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Navigasi utama">
+        <a class="brand" href="/">{profile.name}</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+        <div id="nav-links" class="nav-links" data-open="false">
+          <a href="/#tentang">Tentang</a>
+          <a href="/#keahlian">Keahlian</a>
+          <a href="/projects/">Project</a>
+          <a href="/cv/developer/">CV Online</a>
+          <a href="/cv/developer/print/">CV Print</a>
+        </div>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© {new Date().getFullYear()} {profile.name}. Dibangun dengan Astro.</span>
+        <a href={profile.github} rel="noreferrer" target="_blank">GitHub @{profile.githubUser}</a>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+      const links = document.querySelector<HTMLElement>('#nav-links');
+      toggle?.addEventListener('click', () => {
+        const open = links?.dataset.open !== 'true';
+        if (links) links.dataset.open = String(open);
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    </script>
+  </body>
+</html>

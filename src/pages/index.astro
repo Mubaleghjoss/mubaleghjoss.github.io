@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LearningBadge from '../components/LearningBadge.astro';
+import { capabilities, education, experiences, featuredProjects, learningProjects, profile, skillGroups } from '../data';
+import { site } from '../config/site';
+
+const activeSkills = skillGroups.filter((group) => !group.subdued);
+const learningSkills = skillGroups.filter((group) => group.subdued);
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Portfolio · CV Online</p>
+        <h1>{profile.headline}</h1>
+        <p class="lead">{profile.summary}</p>
+        {site.showAvailability && profile.availableForWork && (
+          <div class="hero-meta"><span class="chip availability">Tersedia untuk peluang kerja</span><span class="chip">{profile.locationShort}</span></div>
+        )}
+        <div class="button-row">
+          <a class="button" href="/projects/">Lihat project</a>
+          <a class="button button--secondary" href="/cv/developer/">Baca CV online</a>
+        </div>
+      </div>
+      {site.showPhoto && <div class="avatar-wrap"><img class="avatar" src={profile.photo} width="600" height="600" alt={`Foto profil ${profile.name}`} /></div>}
+    </div>
+  </section>
+
+  <section class="section section--surface" id="tentang">
+    <div class="container grid grid--2">
+      <div class="section-head"><p class="eyebrow">Cara kerja</p><h2>Mengubah proses nyata menjadi sistem yang tertib.</h2></div>
+      <div class="prose"><p>Saya bekerja dekat dengan pengguna: memahami prosesnya, menyusun data dan aturan bisnisnya, membangun fitur, lalu menguji dan merawatnya setelah dipakai. Fokusnya bukan sekadar menambah layar, melainkan membangun alur yang dapat dipertanggungjawabkan saat data berkembang dan banyak peran terlibat.</p><p>Pengalaman utama saya ada di sistem akademik, administrasi, pembinaan, integrasi antaraplikasi, dan dukungan operasional aplikasi produksi.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="keahlian">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">Keahlian</p><h2>Teknologi yang dipakai dalam pekerjaan.</h2><p>Ditampilkan tanpa skor atau progress bar. Daftar “Sedang Dipelajari” dipisahkan agar tidak disalahartikan sebagai pengalaman produksi.</p></div>
+      <div class="grid grid--3">
+        {activeSkills.map((group) => <article class="card"><h3>{group.label}</h3><ul class="skill-list">{group.items.map((item) => <li>{item}</li>)}</ul></article>)}
+      </div>
+      {learningSkills.length > 0 && <div class="grid grid--3" style="margin-top: 1rem;">{learningSkills.map((group) => <article class="card subdued"><p class="card-kicker">Status transparan</p><h3>{group.label}</h3><ul class="skill-list">{group.items.map((item) => <li>{item}</li>)}</ul></article>)}</div>}
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container"><div class="section-head"><p class="eyebrow">Fokus kontribusi</p><h2>Dari analisis sampai pemeliharaan.</h2></div><div class="grid grid--3">{capabilities.map((item) => <article class="card"><h3>{item.title}</h3><p>{item.detail}</p></article>)}</div></div>
+  </section>
+
+  <section class="section" id="project">
+    <div class="container"><div class="section-head"><p class="eyebrow">Project produksi</p><h2>Solusi digital untuk organisasi nyata.</h2><p>Case study berikut menjelaskan konteks masalah, batasan, keputusan teknis, dan hasil — bukan sekadar daftar teknologi.</p></div><div class="grid grid--2">{featuredProjects.map((project) => <a class="card card-link" href={`/projects/${project.slug}/`}><p class="card-kicker">{project.positioning} · {project.period}</p><h3 class="card-title">{project.name}</h3><p>{project.summary}</p><div class="tag-list">{project.tech.slice(0, 2).flatMap((group) => group.items.slice(0, 3)).map((tech) => <span class="tag">{tech}</span>)}</div><span class="arrow">Baca case study →</span></a>)}</div><div class="button-row"><a class="button button--secondary" href="/projects/">Semua project</a></div></div>
+  </section>
+
+  {site.showLearningProjects && <section class="section section--surface"><div class="container"><div class="section-head"><p class="eyebrow">Learning project</p><h2>Belajar dengan bukti yang bisa diperiksa.</h2><p>Ini bukan produk produksi. Setiap kartu diberi label yang jelas, memiliki repo publik, dan catatan verifikasi yang spesifik.</p></div><div class="grid grid--3">{learningProjects.map((project) => <article class="card"><LearningBadge status={project.status} /><h3 style="margin-top: .85rem">{project.name}</h3><p class="card-kicker">{project.positioning}</p><p>{project.summary}</p><div class="tag-list">{project.tech.map((tech) => <span class="tag">{tech}</span>)}</div>{project.repo && <p style="margin-top: 1rem"><a href={project.repo} target="_blank" rel="noreferrer">Buka repo →</a></p>}<p style="margin-top: .8rem; font-size: .84rem;">{project.note}</p></article>)}</div></div></section>}
+
+  <section class="section" id="pengalaman"><div class="container grid grid--2"><div class="section-head"><p class="eyebrow">Pengalaman</p><h2>Membangun dan merawat, bukan hanya menyerahkan.</h2></div><div class="timeline">{experiences.map((experience) => <article class="timeline-item"><p class="timeline-meta">{experience.start} — {experience.end}</p><h3>{experience.role}</h3><p><strong>{experience.organization}</strong> · {experience.location}</p>{experience.summary && <p>{experience.summary}</p>}<ul>{experience.bullets.slice(0, 4).map((bullet) => <li>{bullet}</li>)}</ul></article>)}</div></div></section>
+
+  <section class="section section--surface"><div class="container grid grid--2"><div class="section-head"><p class="eyebrow">Pendidikan</p><h2>Landasan formal.</h2></div><div>{education.map((item) => <article class="card"><h3>{item.degree} — {item.field}</h3><p>{item.institution} · {item.start}–{item.end}</p></article>)}</div></div></section>
+
+  <section class="section" id="kontak"><div class="container grid grid--2"><div><p class="eyebrow">Kontak</p><h2>Mari membahas kebutuhan sistem Anda.</h2><p class="lead">Untuk peluang Full-Stack Developer, diskusi teknis, atau kolaborasi proyek.</p></div><div class="card"><h3>{profile.name}</h3><p>{profile.locationShort}</p><p><a href={`mailto:${profile.email}`}>{profile.email}</a></p><p><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a> · <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a></p><div class="button-row"><a class="button" href="/cv/developer/">CV Developer</a></div></div></div></section>
+</BaseLayout>

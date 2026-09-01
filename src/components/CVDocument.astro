@@ -1,0 +1,33 @@
+---
+import type { CvProfile } from '../data/types';
+import { education, experiences, profile, projectBySlug, skillGroupById } from '../data';
+
+interface Props { cvProfile: CvProfile; }
+const { cvProfile } = Astro.props;
+const selectedSkills = cvProfile.skillGroups.map((id) => skillGroupById[id]);
+const selectedExperience = experiences.filter((item) => item.cvProfiles.includes(cvProfile.id));
+const selectedProjects = cvProfile.featuredProjects.map((slug) => projectBySlug[slug]).filter(Boolean);
+const projectTech = (project: (typeof selectedProjects)[number]) =>
+  project.tech
+    .flatMap((section) => section.items)
+    .filter((item) => !/\b\d+(?:\.\d+)?\b/.test(item))
+    .slice(0, 8);
+---
+<header class="cv-header">
+  <div>
+    <h1>{profile.name}</h1>
+    <p class="eyebrow" style="margin-bottom: 0">{cvProfile.headline}</p>
+  </div>
+  <div class="cv-contact">
+    <div>{profile.locationShort}</div>
+    <div><a href={`mailto:${profile.email}`}>{profile.email}</a></div>
+    <div>{profile.phone}</div>
+    <div><a href={profile.github}>{profile.github.replace('https://', '')}</a></div>
+    <div><a href={profile.linkedin}>{profile.linkedin.replace('https://www.', '')}</a></div>
+  </div>
+</header>
+<section class="cv-section"><h2>Profil</h2><p>{cvProfile.summary}</p></section>
+<section class="cv-section"><h2>Keahlian</h2>{selectedSkills.map((group) => <div class="cv-skill-line"><strong>{group.cvLabel}:</strong> <span class="cv-skill-items">{group.items.map((item) => <span class="cv-skill-item">{item}</span>)}</span></div>)}</section>
+<section class="cv-section"><h2>Pengalaman</h2>{selectedExperience.map((item) => <article class="cv-entry"><h3>{item.role} — {item.organization}</h3><p class="meta">{item.location} · {item.start}–{item.end}</p>{item.summary && <p>{item.summary}</p>}<ul>{item.bullets.slice(0, 5).map((bullet) => <li>{bullet}</li>)}</ul></article>)}</section>
+<section class="cv-section"><h2>Project Terpilih</h2>{selectedProjects.map((item) => <article class="cv-entry"><h3>{item.name}</h3><p class="meta">{item.positioning} · {item.period}</p><p>{item.cvSummary}</p><p class="cv-skill-line"><strong>Teknologi utama:</strong> {projectTech(item).join(' · ')}</p></article>)}</section>
+<section class="cv-section"><h2>Pendidikan</h2>{education.map((item) => <article class="cv-entry"><h3>{item.degree} {item.field && `— ${item.field}`}</h3><p class="meta">{item.institution} · {item.start}–{item.end}</p></article>)}</section>

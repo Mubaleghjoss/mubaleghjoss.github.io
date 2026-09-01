@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+---
+<BaseLayout title={`${project.name} — Case Study | Putra Kamulyan`} description={project.summary} path={`/projects/${project.slug}/`}>
+  <section class="project-hero"><div class="container"><p class="eyebrow">Case study produksi</p><h1>{project.name}</h1><p class="lead">{project.summary}</p><div class="project-meta"><span class="chip">{project.positioning}</span><span class="chip">{project.role}</span><span class="chip">{project.period}</span></div><div class="button-row">{project.url && <a class="button" href={project.url} target="_blank" rel="noreferrer">Kunjungi aplikasi</a>}{project.repo && <a class="button button--secondary" href={project.repo} target="_blank" rel="noreferrer">Repository</a>}</div></div></section>
+  <section class="section"><div class="container detail-grid"><div>
+    <section class="detail-section"><p class="eyebrow">Konteks</p><h2>Masalah yang diselesaikan</h2><ul class="content-list">{project.problem.map((item) => <li>{item}</li>)}</ul></section>
+    <section class="detail-section"><p class="eyebrow">Keputusan</p><h2>Solusi yang dibangun</h2><ul class="content-list">{project.solution.map((item) => <li>{item}</li>)}</ul></section>
+    <section class="detail-section"><p class="eyebrow">Peran</p><h2>Kontribusi saya</h2><ul class="content-list">{project.myRole.map((item) => <li>{item}</li>)}</ul></section>
+    <section class="detail-section"><p class="eyebrow">Arsitektur</p><h2>Bagian utama sistem</h2><pre class="architecture">{project.architecture}</pre></section>
+    {project.workflow && <section class="detail-section"><p class="eyebrow">Alur</p><h2>Bagaimana pekerjaan bergerak</h2><pre class="architecture">{project.workflow}</pre></section>}
+    <section class="detail-section"><p class="eyebrow">Fitur</p><h2>Fitur yang relevan</h2><div class="grid feature-grid">{project.features.map((feature) => <article class="card"><h3>{feature.title}</h3><p>{feature.detail}</p></article>)}</div></section>
+    <section class="detail-section"><p class="eyebrow">Tantangan</p><h2>Masalah teknis dan penanganannya</h2><div class="grid">{project.challenges.map((challenge) => <article class="card"><h3>Masalah</h3><p>{challenge.problem}</p><h3 style="margin-top: 1.15rem">Penanganan</h3><p>{challenge.solution}</p></article>)}</div></section>
+    <section class="detail-section"><p class="eyebrow">Hasil</p><h2>Dampak yang bisa dijelaskan</h2><ul class="content-list">{project.results.map((item) => <li>{item}</li>)}</ul></section>
+  </div><aside class="detail-aside"><div class="card"><p class="card-kicker">Teknologi</p>{project.tech.map((section) => <div><h3>{section.label}</h3><div class="tag-list">{section.items.map((item) => <span class="tag">{item}</span>)}</div></div>)}</div>{project.metrics.length > 0 && <div class="card" style="margin-top: 1rem"><p class="card-kicker">Skala kode saat audit</p>{project.metrics.map((metric) => <div class="metric"><strong>{metric.value}</strong><span>{metric.label}</span><small>{metric.source}</small></div>)}</div>}</aside></div></section>
+</BaseLayout>

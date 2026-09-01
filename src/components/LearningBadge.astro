@@ -1,0 +1,16 @@
+---
+import type { LearningProject } from '../data/types';
+
+interface Props {
+  status: LearningProject['status'];
+}
+
+const { status } = Astro.props;
+const label = {
+  done: 'Learning Project · selesai',
+  'in-progress': 'Learning Project · berlangsung',
+  planned: 'Learning Project · direncanakan',
+}[status];
+const className = status === 'done' ? 'badge badge--done' : status === 'in-progress' ? 'badge badge--progress' : 'badge badge--planned';
+---
+<span class={className}>{label}</span>

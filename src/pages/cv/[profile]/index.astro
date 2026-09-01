@@ -1,0 +1,17 @@
+---
+import CVDocument from '../../../components/CVDocument.astro';
+import CVLayout from '../../../layouts/CVLayout.astro';
+import { cvProfiles } from '../../../data';
+
+export function getStaticPaths() {
+  return cvProfiles.map((cvProfile) => ({ params: { profile: cvProfile.id }, props: { cvProfile } }));
+}
+const { cvProfile } = Astro.props;
+---
+<CVLayout title={`CV ${cvProfile.label} — Putra Kamulyan`}>
+  <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line)">
+    <a href="/">← Portfolio</a>
+    <div style="display: flex; gap: .7rem; flex-wrap: wrap"><a href={`/cv/${cvProfile.id}/print/`}>Versi print</a><button class="button" type="button" onclick="window.print()">Cetak / Simpan PDF</button></div>
+  </div>
+  <CVDocument cvProfile={cvProfile} />
+</CVLayout>
