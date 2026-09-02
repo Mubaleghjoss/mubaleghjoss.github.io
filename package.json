@@ -11,9 +11,12 @@
     "check": "astro check",
     "cv:pdf": "astro build && node scripts/generate-cv-pdf.mjs",
     "verify": "astro check && astro build && node scripts/generate-cv-pdf.mjs",
-    "verify:browser": "node scripts/verify-pages.mjs"
+    "verify:browser": "node scripts/verify-pages.mjs",
+    "verify:live": "node scripts/verify-live.mjs",
+    "measure:hero": "node scripts/measure-hero.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "3.7.0",
     "@tailwindcss/vite": "4.3.3",
     "astro": "7.2.10",
     "tailwindcss": "4.3.3"

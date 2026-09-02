@@ -59,10 +59,12 @@ h3 { font-size: 1.125rem; margin-bottom: .5rem; }
 
 .hero { padding: clamp(4.5rem, 10vw, 8rem) 0 5.5rem; }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(220px, .65fr); align-items: center; gap: clamp(2rem, 7vw, 6rem); }
+/* Measure hero dijaga ~62ch agar nyaman dibaca pada layar lebar. */
+.hero-lead { max-width: 62ch; }
 .hero-meta { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.6rem; }
 .chip, .tag { display: inline-flex; align-items: center; padding: .25rem .55rem; border: 1px solid var(--line); border-radius: 999px; color: #43516a; font-size: .8rem; font-weight: 650; line-height: 1.45; }
 .availability { background: var(--success-soft); border-color: #c9e6d4; color: var(--success); }
-.avatar-wrap { justify-self: center; width: min(100%, 300px); }
+.avatar-wrap { justify-self: center; width: min(100%, 330px); }
 .avatar { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--line); border-radius: 50%; box-shadow: 0 16px 40px rgba(27, 42, 69, .12); }
 
 .grid { display: grid; gap: 1rem; }

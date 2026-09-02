@@ -4,7 +4,11 @@ export type Profile = {
   name: string;
   headline: string;
   subheadline: string[];
+  /** Ringkas untuk hero (2 kalimat). Dipisah dari `summary` agar hero tidak padat. */
+  heroLead: string;
   summary: string;
+  /** Paragraf cara kerja pada section Tentang; disimpan di data, bukan di komponen. */
+  workingStyle: string[];
   location: string;
   locationShort: string;
   email: string;

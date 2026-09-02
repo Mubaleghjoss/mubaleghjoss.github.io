@@ -48,10 +48,29 @@ npm run build
 npm run cv:pdf
 
 # Verifikasi browser pada preview lokal (desktop dan ponsel)
+npm run preview -- --host 127.0.0.1 --port 4321   # di terminal lain
 npm run verify:browser
+
+# Ukur geometri hero (measure teks, rasio kolom, tinggi hero)
+npm run measure:hero
+
+# Verifikasi situs live setelah deploy
+npm run verify:live
 ```
 
 `npm run verify` adalah pipeline yang dipakai GitHub Actions. Ia menjalankan type-check, build, dan pembuatan PDF.
+
+## Struktur URL
+
+| Halaman | URL |
+| --- | --- |
+| Landing | `/` |
+| Daftar project | `/projects/` |
+| Case study | `/projects/<slug>/` |
+| CV online | `/cv/<profil>/` |
+| Halaman print | `/cv/<profil>/print/` |
+| PDF | `/cv/<nama-file>.pdf` |
+| Sitemap | `/sitemap-index.xml` |
 
 ## Catatan privasi
 

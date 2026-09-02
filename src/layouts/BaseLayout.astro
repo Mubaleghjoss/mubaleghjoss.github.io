@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { profile } from '../data/profile';
+import { cvProfileById } from '../data/cvProfiles';
 import { site } from '../config/site';
 
 interface Props {
@@ -15,20 +16,35 @@ const {
   path = '/',
 } = Astro.props;
 const canonical = new URL(path, site.url).toString();
+const ogImage = new URL(profile.photo, site.url).toString();
+/** Nama file PDF diambil dari data CV, bukan ditulis ulang di komponen. */
+const cvPdf = cvProfileById[site.defaultCvProfile].fileName;
+/** Tandai tautan nav yang sedang aktif; CSS sudah menyiapkan gayanya. */
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href.split('#')[0]) && href !== '/';
 ---
 <!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content={site.author} />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="id_ID" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <title>{title}</title>
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -48,9 +64,9 @@ const canonical = new URL(path, site.url).toString();
         <div id="nav-links" class="nav-links" data-open="false">
           <a href="/#tentang">Tentang</a>
           <a href="/#keahlian">Keahlian</a>
-          <a href="/projects/">Project</a>
-          <a href="/cv/developer/">CV Online</a>
-          <a href="/cv/developer/print/">CV Print</a>
+          <a href="/projects/" aria-current={isCurrent('/projects/') ? 'page' : undefined}>Project</a>
+          <a href="/cv/developer/" aria-current={isCurrent('/cv/') ? 'page' : undefined}>CV Online</a>
+          <a href={`/cv/${cvPdf}`} download>Unduh PDF</a>
         </div>
       </nav>
     </header>

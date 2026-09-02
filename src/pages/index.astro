@@ -11,9 +11,9 @@ const learningSkills = skillGroups.filter((group) => group.subdued);
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <p class="eyebrow">Portfolio · CV Online</p>
+        <p class="eyebrow">Portofolio · CV Online</p>
         <h1>{profile.headline}</h1>
-        <p class="lead">{profile.summary}</p>
+        <p class="lead hero-lead">{profile.heroLead}</p>
         {site.showAvailability && profile.availableForWork && (
           <div class="hero-meta"><span class="chip availability">Tersedia untuk peluang kerja</span><span class="chip">{profile.locationShort}</span></div>
         )}
@@ -29,7 +29,7 @@ const learningSkills = skillGroups.filter((group) => group.subdued);
   <section class="section section--surface" id="tentang">
     <div class="container grid grid--2">
       <div class="section-head"><p class="eyebrow">Cara kerja</p><h2>Mengubah proses nyata menjadi sistem yang tertib.</h2></div>
-      <div class="prose"><p>Saya bekerja dekat dengan pengguna: memahami prosesnya, menyusun data dan aturan bisnisnya, membangun fitur, lalu menguji dan merawatnya setelah dipakai. Fokusnya bukan sekadar menambah layar, melainkan membangun alur yang dapat dipertanggungjawabkan saat data berkembang dan banyak peran terlibat.</p><p>Pengalaman utama saya ada di sistem akademik, administrasi, pembinaan, integrasi antaraplikasi, dan dukungan operasional aplikasi produksi.</p></div>
+      <div class="prose">{profile.workingStyle.map((paragraph) => <p>{paragraph}</p>)}</div>
     </div>
   </section>
 
