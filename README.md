@@ -66,6 +66,17 @@ Yang perlu diingat:
 - Perubahan yang tidak lolos type-check akan menghentikan workflow, sehingga situs live tidak pernah menerima build yang gagal.
 - Deploy juga bisa dipicu tanpa commit lewat tab Actions, tombol `Run workflow` pada `Deploy GitHub Pages` (`workflow_dispatch`).
 - Kredensial GitHub sudah tersimpan di Windows Credential Manager, jadi `git push` biasa cukup.
+- CV wajib tetap 2 halaman A4. `npm run cv:pdf` menghitung halaman tiap PDF dan gagal bila lebih; batasnya dapat diubah lewat `CV_PDF_MAX_PAGES`.
+
+### Font Inter di-host sendiri
+
+Berkas `public/fonts/inter-latin-{400,700,800}-normal.woff2` (Inter, lisensi OFL, salinan lisensi ada di `public/fonts/inter-LICENSE.txt`) sengaja disimpan di repo, bukan diambil dari CDN:
+
+- Runner GitHub Actions memakai Linux tanpa Segoe UI. Tanpa font ini, PDF hasil CI memakai DejaVu Sans yang lebih lebar sehingga CV melebar menjadi tiga halaman, berbeda dari hasil build di Windows.
+- Dipakai tiga berkas bobot statis, bukan satu variable font, karena Chromium menanam variable font sebagai Type3 pada PDF; bobot statis ditanam sebagai TrueType sehingga lebih aman dibaca pemindai ATS.
+- Hanya bobot yang benar-benar dipakai situs yang disimpan (400 untuk teks, 700 dan 800 untuk judul serta penekanan). Bila menambah `font-weight` baru di CSS, tambahkan berkasnya juga, kalau tidak browser akan mensintesis bobot itu sendiri.
+- `scripts/generate-cv-pdf.mjs` memeriksa `document.fonts.check` sebelum mencetak, jadi build berhenti bila font gagal termuat, bukan diam-diam mencetak dengan font pengganti.
+- Bila suatu saat font diganti, perbarui `@font-face` pada `src/styles/global.css`, tautan `rel="preload"` di kedua layout, dan nama font pada pemeriksaan di `scripts/generate-cv-pdf.mjs`.
 
 
 ## Menjalankan lokal

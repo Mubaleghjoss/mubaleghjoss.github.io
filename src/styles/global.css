@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+/*
+ * Inter di-host sendiri (bukan CDN) supaya tampilan situs dan hasil PDF sama
+ * di mana pun dibuka: runner GitHub Actions tidak punya Segoe UI, jadi tanpa
+ * font ini PDF jatuh ke DejaVu Sans yang lebih lebar dan menambah halaman.
+ * Dipakai versi bobot statis, bukan variable font, karena Chromium menanam
+ * variable font sebagai Type3 di PDF — teks masih terbaca, tetapi TrueType
+ * lebih aman untuk pemindai ATS. Lisensi OFL: public/fonts/inter-LICENSE.txt.
+ */
+@font-face {
+  font-family: "Inter Portfolio";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("/fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter Portfolio";
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url("/fonts/inter-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter Portfolio";
+  font-style: normal;
+  font-weight: 800;
+  font-display: block;
+  src: url("/fonts/inter-latin-800-normal.woff2") format("woff2");
+}
+
 :root {
   --ink: #172033;
   --muted: #526078;
@@ -21,7 +51,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Inter Portfolio", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 1.65;
 }
@@ -170,16 +200,22 @@ h3 { font-size: 1.125rem; margin-bottom: .5rem; }
 
 @media print {
   @page { size: A4; margin: 11mm; }
-  body { font-size: 9.4pt; line-height: 1.38; }
+  /* Ukuran dirapatkan agar CV utuh dalam 2 halaman A4 dengan font Inter. */
+  body { font-size: 9pt; line-height: 1.32; }
   .site-header, .footer, .no-print { display: none !important; }
   .cv-shell { width: auto; margin: 0; border: 0; padding: 0; }
-  .cv-header { padding-bottom: .7rem; }
-  .cv-header h1 { font-size: 24pt; }
-  .cv-section { padding-top: .85rem; }
-  .cv-section h2 { font-size: 10pt; margin-bottom: .3rem; }
-  .cv-entry { padding: .35rem 0; break-inside: avoid; }
-  .cv-entry ul { margin-top: .2rem; }
-  .cv-list { margin-top: .2rem; }
-  .cv-list li + li { margin-top: 0; }
+  .cv-header { padding-bottom: .55rem; }
+  .cv-header h1 { font-size: 22pt; }
+  .cv-section { padding-top: .6rem; }
+  .cv-section h2 { font-size: 9.5pt; margin-bottom: .25rem; break-after: avoid; }
+  /* Entri boleh terpotong antar halaman (kalau tidak, sisa halaman jadi kosong
+     dan CV melebar jadi 3 halaman), tetapi judul dan butir tidak boleh pecah. */
+  .cv-entry { padding: .28rem 0; break-inside: auto; }
+  .cv-entry h3 { break-after: avoid; }
+  .cv-entry .meta { break-after: avoid; }
+  .cv-entry li, .cv-list li { break-inside: avoid; }
+  .cv-entry ul, .cv-list { margin-top: .15rem; }
+  .cv-entry ul li + li, .cv-list li + li { margin-top: 0; }
+  .cv-skill-line { margin: .32rem 0; }
   a { text-decoration: none; }
 }
