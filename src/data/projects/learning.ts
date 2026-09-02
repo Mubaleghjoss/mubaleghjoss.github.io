@@ -64,7 +64,7 @@ export const learningProjects: LearningProject[] = [
     tech: ['PHP 8.2', 'CodeIgniter 4.7', 'MySQL', 'SQLite', 'PHPUnit 10'],
     status: 'done',
     repo: 'https://github.com/Mubaleghjoss/ci4-crud-lab',
-    note: 'Terverifikasi: 39 test / 88 assertion lulus di PHP 8.2 lokal serta GitHub Actions pada PHP 8.2 dan 8.3, termasuk test negatif dan bukti output ter-escape.',
+    note: 'Terverifikasi: 39 test / 88 assertion lulus di PHP 8.2 lokal serta GitHub Actions (PHP 8.2 dan 8.3), termasuk test negatif.',
   },
 ];
 

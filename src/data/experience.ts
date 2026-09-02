@@ -8,7 +8,7 @@ export const experiences: Experience[] = [
     start: 'Januari 2023',
     end: 'Sekarang',
     summary:
-      'Memimpin tim IT sekolah sekaligus mengelola data pokok pendidikan, dan membangun sendiri ekosistem aplikasi yang dipakai guru, wali kelas, kurikulum, dan manajemen sekolah.',
+      'Memimpin tim IT sekolah, mengelola data pokok pendidikan, dan membangun sendiri ekosistem aplikasi yang dipakai lintas unit sekolah.',
     bullets: [
       'Menganalisis kebutuhan bersama guru, wali kelas, dan bagian kurikulum, lalu menerjemahkannya menjadi spesifikasi fitur dan rancangan basis data.',
       'Membangun aplikasi akademik dan administrasi berbasis Laravel + Filament: data induk siswa dan guru, rombongan belajar, mata pelajaran, skema penilaian, input nilai, rekap wali kelas, sampai cetak rapor PDF.',
