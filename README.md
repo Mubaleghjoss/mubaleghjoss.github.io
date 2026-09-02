@@ -26,6 +26,48 @@ Konten tidak ditulis ulang di komponen. Ubah data pada `src/data/`, lalu halaman
 | Case study | `src/data/projects/` |
 | Pengaturan situs | `src/config/site.ts` |
 
+### Aturan penulisan teks
+
+Halaman ini dirancang untuk dipindai, bukan dibaca sebagai esai. Karena itu:
+
+- Field bertipe array (`workingStyle`, `summaryPoints`, `highlights`, `bullets`, `problem`, `solution`, `results`) dirender sebagai daftar berbutir. Tambah butir baru, jangan menyambung kalimat ke butir yang sudah ada.
+- Field bertipe string (`heroLead`, `summary`) cukup satu sampai dua kalimat. Bila isinya bertambah panjang, pindahkan detailnya menjadi butir baru pada array pasangannya.
+- Satu butir = satu gagasan, idealnya di bawah 140 karakter agar tidak melipat menjadi tiga baris pada ponsel.
+
+## Cara update
+
+Alur singkatnya: ubah data, verifikasi lokal, commit, push. Push ke `main` sudah otomatis mem-build dan men-deploy — tidak ada langkah manual di web GitHub.
+
+```bash
+cd E:/xampp/htdocs/mubaleghjoss.github.io
+
+# 1. Ubah isi di src/data/ (lihat tabel di atas)
+
+# 2. Verifikasi: type-check + build + tiga PDF CV
+npm run verify
+
+# 3. Opsional, pemeriksaan tampilan di browser sungguhan
+npm run preview -- --host 127.0.0.1 --port 4321   # terminal lain
+npm run verify:browser    # 6 rute, desktop + ponsel 390px
+npm run verify:nav        # bar menu ponsel: warna, item aktif, buka/tutup
+
+# 4. Simpan dan kirim
+git add -A
+git commit -m "perbarui ..."
+git push origin main
+
+# 5. Setelah workflow selesai (2-3 menit)
+npm run verify:live
+```
+
+Yang perlu diingat:
+
+- `dist/`, PDF, dan hasil build lain tidak perlu di-commit. GitHub Actions membuatnya ulang setiap push.
+- Perubahan yang tidak lolos type-check akan menghentikan workflow, sehingga situs live tidak pernah menerima build yang gagal.
+- Deploy juga bisa dipicu tanpa commit lewat tab Actions, tombol `Run workflow` pada `Deploy GitHub Pages` (`workflow_dispatch`).
+- Kredensial GitHub sudah tersimpan di Windows Credential Manager, jadi `git push` biasa cukup.
+
+
 ## Menjalankan lokal
 
 Prasyarat: Node.js 24 atau versi LTS yang didukung Astro.
@@ -50,6 +92,9 @@ npm run cv:pdf
 # Verifikasi browser pada preview lokal (desktop dan ponsel)
 npm run preview -- --host 127.0.0.1 --port 4321   # di terminal lain
 npm run verify:browser
+
+# Bar menu pada tampilan ponsel: warna, penanda halaman aktif, buka/tutup
+npm run verify:nav
 
 # Ukur geometri hero (measure teks, rasio kolom, tinggi hero)
 npm run measure:hero

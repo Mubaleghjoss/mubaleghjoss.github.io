@@ -16,9 +16,17 @@ export const pkgMobileApp: Project = {
   featured: true,
   order: 3,
   summary:
-    'Aplikasi Flutter yang terhubung ke REST API PKGenerus untuk tiga aktor login: pamong/staf, orang tua, dan siswa. Setiap aktor mendapat dashboard serta batas akses sendiri; backend Laravel tetap menjadi sumber otorisasi.',
-  cvSummary:
-    'Klien mobile Flutter untuk REST API Laravel: autentikasi bearer token, dashboard tiga peran, Riverpod untuk state management, GoRouter untuk navigasi, Dio untuk HTTP, dan pengujian unit/widget.',
+    'Aplikasi Flutter yang terhubung ke REST API PKGenerus untuk tiga aktor login: pamong/staf, orang tua, dan siswa.',
+  highlights: [
+    'Setiap aktor mendapat dashboard dan batas akses sendiri.',
+    'Backend Laravel tetap menjadi satu-satunya sumber otorisasi.',
+    'Sesi memakai bearer token dengan penyimpanan aman di perangkat.',
+  ],
+  cvPoints: [
+    'Klien mobile Flutter untuk REST API Laravel dengan autentikasi bearer token.',
+    'Dashboard tiga peran, Riverpod untuk state, GoRouter untuk navigasi, Dio untuk HTTP.',
+    'Disertai pengujian unit dan widget.',
+  ],
   problem: [
     'Portal web pembinaan sudah memiliki API, tetapi akses dari ponsel perlu pengalaman yang lebih fokus untuk tiga jenis pengguna.',
     'Aplikasi klien tidak boleh menjadi sumber aturan akses baru; otorisasi harus konsisten dengan backend Laravel yang sudah ada.',

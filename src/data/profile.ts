@@ -5,13 +5,18 @@ export const profile: Profile = {
   headline: 'Full-Stack Web & Mobile Developer',
   subheadline: ['PHP', 'Laravel', 'MySQL', 'REST API', 'Flutter'],
   heroLead:
-    'Sejak 2023 saya membangun dan merawat sistem informasi yang dipakai setiap hari oleh sebuah sekolah dan sebuah lembaga pembinaan. Pekerjaan saya menyentuh seluruh siklus: analisis kebutuhan, basis data, backend dan frontend, deployment produksi, sampai pemeliharaan.',
-  summary:
-    'Full-Stack Developer yang membangun dan merawat sistem informasi yang dipakai setiap hari oleh sebuah sekolah dan sebuah lembaga pembinaan. Sejak 2023 saya menangani seluruh siklus pengembangan: analisis kebutuhan bersama pengguna, perancangan basis data relasional, pembangunan fitur backend dan frontend, integrasi REST API antaraplikasi, debugging, deployment ke server produksi, sampai pemeliharaan berkelanjutan. Fokus saya adalah mengubah proses kerja manual — penilaian, presensi, administrasi, pelaporan — menjadi alur digital yang tertib, dapat diaudit, dan tetap nyaman dipakai dari ponsel.',
+    'Sejak 2023 saya membangun dan merawat sistem informasi yang dipakai setiap hari oleh sebuah sekolah dan sebuah lembaga pembinaan.',
+  /**
+   * Ditulis sebagai butir pendek, bukan paragraf: pembaca halaman profil
+   * umumnya memindai, bukan membaca berurutan. Satu butir = satu gagasan.
+   */
   workingStyle: [
-    'Saya bekerja dekat dengan pengguna: memahami prosesnya, menyusun data dan aturan bisnisnya, membangun fitur, lalu menguji dan merawatnya setelah dipakai. Fokusnya bukan sekadar menambah layar, melainkan membangun alur yang dapat dipertanggungjawabkan saat data berkembang dan banyak peran terlibat.',
-    'Fokus saya adalah mengubah proses kerja manual — penilaian, presensi, administrasi, pelaporan — menjadi alur digital yang tertib, dapat diaudit, dan tetap nyaman dipakai dari ponsel.',
-    'Pengalaman utama saya ada di sistem akademik, administrasi, pembinaan, integrasi antaraplikasi, dan dukungan operasional aplikasi produksi.',
+    'Mulai dari proses nyata — menemui pengguna, memetakan alur kerjanya, lalu menentukan data dan aturan yang dibutuhkan.',
+    'Merancang basis data lebih dulu: relasi, migration, dan indeks, sebelum satu fitur pun ditulis.',
+    'Membangun backend dan frontend sendiri, termasuk tampilan yang nyaman dipakai dari ponsel.',
+    'Menerapkan hak akses per peran, sehingga setiap pengguna hanya melihat data yang menjadi tanggung jawabnya.',
+    'Menguji dengan data nyata, lalu merawat aplikasi setelah dipakai — pekerjaan tidak berhenti di serah terima.',
+    'Menuliskan dokumentasi dan panduan singkat agar operator lain bisa melanjutkan.',
   ],
   location:
     'Kp. Sawah Dalam, Panunggangan Utara, Pinang, Kota Tangerang, Banten',

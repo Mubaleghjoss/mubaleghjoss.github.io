@@ -12,6 +12,7 @@
     "cv:pdf": "astro build && node scripts/generate-cv-pdf.mjs",
     "verify": "astro check && astro build && node scripts/generate-cv-pdf.mjs",
     "verify:browser": "node scripts/verify-pages.mjs",
+    "verify:nav": "node scripts/check-mobile-nav.mjs",
     "verify:live": "node scripts/verify-live.mjs",
     "measure:hero": "node scripts/measure-hero.mjs"
   },

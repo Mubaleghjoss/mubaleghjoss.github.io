@@ -49,7 +49,9 @@ h3 { font-size: 1.125rem; margin-bottom: .5rem; }
 .nav-links { display: flex; gap: 1.25rem; align-items: center; }
 .nav-links a { color: var(--muted); font-size: .92rem; font-weight: 650; text-decoration: none; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--accent); }
-.nav-toggle { display: none; padding: .45rem .65rem; border: 1px solid var(--line); border-radius: .4rem; background: white; color: var(--ink); }
+/* Tombol menu diberi warna aksen lembut supaya tidak tampak polos putih. */
+.nav-toggle { display: none; align-items: center; gap: .4rem; min-height: 2.5rem; padding: .45rem .8rem; border: 1px solid #c3d0ea; border-radius: .45rem; background: var(--accent-soft); color: var(--accent-strong); font-size: .88rem; font-weight: 750; }
+.nav-toggle[aria-expanded="true"] { background: var(--accent); border-color: var(--accent); color: white; }
 
 .button-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: .65rem 1rem; border: 1px solid var(--accent); background: var(--accent); border-radius: .4rem; color: white; font-size: .92rem; font-weight: 720; text-decoration: none; }
@@ -90,6 +92,14 @@ h3 { font-size: 1.125rem; margin-bottom: .5rem; }
 .timeline-meta { color: var(--accent); font-size: .88rem; font-weight: 700; margin-bottom: .5rem; }
 .timeline ul, .content-list { padding-left: 1.2rem; color: var(--muted); }
 .timeline li + li, .content-list li + li { margin-top: .25rem; }
+/* Penanda butir diberi warna aksen agar daftar terbaca sebagai pointer, bukan blok teks. */
+.timeline ul li::marker, .content-list li::marker, .cv-list li::marker { color: var(--accent); }
+/* Varian berjarak untuk butir yang berisi satu kalimat penuh. */
+.content-list--roomy { margin: 0; }
+.content-list--roomy li + li { margin-top: .6rem; }
+/* Varian rapat untuk butir di dalam kartu, agar tinggi kartu tetap seimbang. */
+.content-list--tight { margin: .55rem 0 .9rem; font-size: .9rem; }
+.content-list--tight li + li { margin-top: .2rem; }
 
 .project-hero { padding: 4.6rem 0 3.6rem; background: var(--surface); border-bottom: 1px solid var(--line); }
 .project-meta { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.15rem 0; }
@@ -124,6 +134,9 @@ h3 { font-size: 1.125rem; margin-bottom: .5rem; }
 .cv-entry .meta { color: var(--muted); font-size: .88rem; }
 .cv-entry ul { color: #3d4960; font-size: .91rem; margin: .5rem 0 0; padding-left: 1.15rem; list-style: disc outside; }
 .cv-entry li::marker { color: var(--accent); font-size: .8em; }
+/* Butir ringkasan Profil: sama gaya dengan butir pengalaman agar CV konsisten. */
+.cv-list { color: #3d4960; font-size: .91rem; margin: .5rem 0 0; padding-left: 1.15rem; list-style: disc outside; }
+.cv-list li + li { margin-top: .18rem; }
 .cv-skill-line { color: #3d4960; font-size: .91rem; margin: .5rem 0; }
 .cv-skill-line strong { color: var(--ink); }
 .cv-skill-items { display: inline; }
@@ -138,9 +151,15 @@ h3 { font-size: 1.125rem; margin-bottom: .5rem; }
   .hero .lead { font-size: 1rem; }
   .section-head { margin-bottom: 1.6rem; }
   .nav-toggle { display: inline-flex; }
-  .nav-links { display: none; position: absolute; inset: 4.65rem 0 auto; flex-direction: column; align-items: stretch; padding: 1rem; border-bottom: 1px solid var(--line); background: white; }
+  /* Bar navigasi pada ponsel diberi warna, garis, dan bayangan agar tidak menyatu dengan isi halaman. */
+  .site-header { background: color-mix(in srgb, var(--accent-soft) 88%, white); border-bottom: 1px solid #b9c8e6; box-shadow: 0 6px 18px rgba(23, 32, 51, .08); }
+  .nav { min-height: 4.1rem; }
+  /* top: 100% mengikat panel ke tinggi header, jadi tidak perlu angka tetap yang bisa basi. */
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: .4rem; padding: .85rem; border-bottom: 1px solid #b9c8e6; background: color-mix(in srgb, var(--accent-soft) 88%, white); box-shadow: 0 16px 30px rgba(23, 32, 51, .14); }
   .nav-links[data-open="true"] { display: flex; }
-  .nav-links a { padding: .45rem 0; }
+  /* Tiap baris menu jadi kartu putih di atas panel berwarna; baris aktif memakai warna aksen penuh. */
+  .nav-links a { padding: .72rem .85rem; border: 1px solid #ccd7ec; border-radius: .45rem; background: white; color: var(--ink); font-size: .95rem; }
+  .nav-links a[aria-current="page"] { border-color: var(--accent); background: var(--accent); color: white; font-weight: 750; }
   .hero-grid, .detail-grid { grid-template-columns: 1fr; }
   .avatar-wrap { width: 180px; grid-row: 1; }
   .grid--2, .grid--3, .feature-grid { grid-template-columns: 1fr; }
@@ -160,5 +179,7 @@ h3 { font-size: 1.125rem; margin-bottom: .5rem; }
   .cv-section h2 { font-size: 10pt; margin-bottom: .3rem; }
   .cv-entry { padding: .35rem 0; break-inside: avoid; }
   .cv-entry ul { margin-top: .2rem; }
+  .cv-list { margin-top: .2rem; }
+  .cv-list li + li { margin-top: 0; }
   a { text-decoration: none; }
 }

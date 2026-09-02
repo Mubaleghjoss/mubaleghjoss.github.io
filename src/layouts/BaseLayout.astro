@@ -30,7 +30,7 @@ const isCurrent = (href: string) =>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content={site.author} />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#e9eef9" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -80,10 +80,18 @@ const isCurrent = (href: string) =>
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
       const links = document.querySelector<HTMLElement>('#nav-links');
-      toggle?.addEventListener('click', () => {
-        const open = links?.dataset.open !== 'true';
+      const setOpen = (open: boolean) => {
         if (links) links.dataset.open = String(open);
-        toggle.setAttribute('aria-expanded', String(open));
+        toggle?.setAttribute('aria-expanded', String(open));
+      };
+      toggle?.addEventListener('click', () => setOpen(links?.dataset.open !== 'true'));
+      /* Panel menu pada ponsel menutupi isi halaman, jadi ditutup setelah item dipilih. */
+      links?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && links?.dataset.open === 'true') {
+          setOpen(false);
+          toggle?.focus();
+        }
       });
     </script>
   </body>

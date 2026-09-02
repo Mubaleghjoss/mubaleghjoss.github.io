@@ -12,9 +12,17 @@ export const smaAfbs: Project = {
   featured: true,
   order: 1,
   summary:
-    'Aplikasi terpadu untuk penilaian, administrasi, dan pelaporan sekolah: dari input nilai guru mapel, validasi wali kelas, sampai cetak rapor PDF dari data yang sudah dibekukan. Dipakai lintas peran — guru mapel, wali kelas, kurikulum, BK, perpustakaan, sarana prasarana, dan manajemen.',
-  cvSummary:
-    'Sistem akademik dan administrasi sekolah berbasis Laravel + Filament: penilaian ASTS/ASAS/ASAT, alur validasi wali kelas, cetak rapor PDF dari snapshot yang dibekukan, hak akses berbasis peran, serta REST API untuk integrasi antaraplikasi.',
+    'Aplikasi terpadu untuk penilaian, administrasi, dan pelaporan sekolah, dipakai lintas peran mulai guru mapel sampai manajemen.',
+  highlights: [
+    'Input nilai guru mapel, validasi wali kelas, sampai cetak rapor PDF dalam satu alur.',
+    'Rapor dicetak dari data yang sudah dibekukan, jadi dokumen resmi tidak berubah diam-diam.',
+    'Melayani guru mapel, wali kelas, kurikulum, BK, perpustakaan, sarana prasarana, dan manajemen.',
+  ],
+  cvPoints: [
+    'Penilaian ASTS/ASAS/ASAT dengan komponen berbobot dan alur validasi wali kelas.',
+    'Cetak rapor PDF dari snapshot yang dibekukan.',
+    'Hak akses berbasis peran dan REST API untuk integrasi antaraplikasi sekolah.',
+  ],
   problem: [
     'Penilaian dan rekap nilai dikerjakan lewat berkas spreadsheet yang tersebar, sehingga rentan salah versi dan sulit dilacak siapa mengubah apa.',
     'Bobot penilaian antar mata pelajaran tidak seragam dan sering tidak berjumlah 100%, sehingga rekap akhir harus dihitung ulang secara manual.',

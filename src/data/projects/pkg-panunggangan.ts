@@ -12,9 +12,17 @@ export const pkgPanunggangan: Project = {
   featured: true,
   order: 2,
   summary:
-    'Sistem pembinaan yang menyatukan presensi berbasis QR, pemantauan perkembangan karakter, materi dan tugas, komunikasi, serta pelaporan kegiatan dalam satu aplikasi dengan portal berbeda untuk admin, pamong, siswa, orang tua, dan publik.',
-  cvSummary:
-    'Sistem pembinaan multi-peran berbasis Laravel: presensi QR, pemantauan perkembangan karakter, materi dan tugas, komunikasi, gamifikasi, serta portal terpisah untuk lima jenis pengguna dengan dukungan PWA dan notifikasi push.',
+    'Sistem pembinaan yang menyatukan presensi, pemantauan karakter, materi, dan pelaporan kegiatan dalam satu aplikasi.',
+  highlights: [
+    'Presensi berbasis QR beserta rekap kehadiran otomatis.',
+    'Pemantauan perkembangan karakter, materi dan tugas, serta pelaporan kegiatan.',
+    'Portal terpisah untuk admin, pamong, siswa, orang tua, dan publik.',
+  ],
+  cvPoints: [
+    'Presensi QR, pemantauan karakter, materi dan tugas, serta gamifikasi.',
+    'Portal terpisah untuk lima jenis pengguna dari satu basis kode Laravel.',
+    'PWA dan notifikasi push agar nyaman dipakai dari ponsel.',
+  ],
   problem: [
     'Presensi kegiatan dicatat manual di buku sehingga rekap kehadiran memakan waktu dan mudah tercecer.',
     'Perkembangan karakter peserta tidak terdokumentasi, sehingga pembina sulit melihat perubahan dari waktu ke waktu.',

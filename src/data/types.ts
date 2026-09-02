@@ -4,10 +4,9 @@ export type Profile = {
   name: string;
   headline: string;
   subheadline: string[];
-  /** Ringkas untuk hero (2 kalimat). Dipisah dari `summary` agar hero tidak padat. */
+  /** Satu kalimat pembuka pada hero. */
   heroLead: string;
-  summary: string;
-  /** Paragraf cara kerja pada section Tentang; disimpan di data, bukan di komponen. */
+  /** Butir "cara kerja" pada section Tentang. Ditulis sebagai pointer, bukan paragraf. */
   workingStyle: string[];
   location: string;
   locationShort: string;
@@ -96,8 +95,12 @@ export type Project = {
   org: string;
   role: string;
   positioning: string;
+  /** Satu kalimat: aplikasi apa ini. Detail dipecah ke `highlights`. */
   summary: string;
-  cvSummary: string;
+  /** Butir pemindai pada kartu project (landing dan daftar project). */
+  highlights: string[];
+  /** Butir ringkas untuk bagian "Project Terpilih" pada CV/PDF. */
+  cvPoints: string[];
   period: string;
   url?: string;
   repo?: string;
@@ -122,7 +125,10 @@ export type CvProfile = {
   id: CvProfileId;
   label: string;
   headline: string;
+  /** Satu sampai dua kalimat pembuka bagian Profil pada CV. */
   summary: string;
+  /** Butir penguat di bawah `summary`, agar Profil terbaca sekilas. */
+  summaryPoints: string[];
   fileName: string;
   skillGroups: SkillGroupId[];
   featuredProjects: string[];
@@ -147,7 +153,10 @@ export type LearningProject = {
   name: string;
   positioning: string;
   goal: string;
+  /** Satu kalimat: apa yang dibangun. Detail teknis masuk ke `highlights`. */
   summary: string;
+  /** Butir teknis yang bisa dipindai; menggantikan paragraf panjang di kartu. */
+  highlights: string[];
   covers: string[];
   tech: string[];
   status: 'planned' | 'in-progress' | 'done';
