@@ -16,8 +16,11 @@ export const projectBySlug = Object.fromEntries(
 ) as Record<string, Project>;
 
 /**
- * Aplikasi lain yang dibangun/dipelihara. Semua repositori publik dan
- * terverifikasi lewat GitHub API (audit 2026-09-01).
+ * Aplikasi lain yang dibangun/dipelihara.
+ *
+ * Aturan: `repo` HANYA dicantumkan bila repositorinya publik, supaya pengunjung
+ * tidak pernah mendapat 404. Repo privat cukup diwakili `url` aplikasi live.
+ * Diverifikasi tanpa token (sudut pandang pengunjung anonim) pada 2026-09-02.
  */
 export const otherProjects: MiniProject[] = [
   {
@@ -27,7 +30,6 @@ export const otherProjects: MiniProject[] = [
       'Situs resmi sekolah berisi profil, berita, dan informasi penerimaan, dengan pembaruan konten lewat panel admin.',
     tech: ['Laravel', 'Blade', 'Tailwind CSS', 'MySQL'],
     url: 'https://www.smaafbs.sch.id',
-    repo: 'https://github.com/Mubaleghjoss/smaafbs',
   },
   {
     name: 'SPMB / Seleksi Siswa Baru',
