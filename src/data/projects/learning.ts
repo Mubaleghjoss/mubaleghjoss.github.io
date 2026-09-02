@@ -30,7 +30,7 @@ export const learningProjects: LearningProject[] = [
     tech: ['MySQL', 'MariaDB', 'SQL', 'Bash'],
     status: 'done',
     repo: 'https://github.com/Mubaleghjoss/sql-procedures-lab',
-    note: 'Terverifikasi di MariaDB 10.4.32: 20 test lulus (10 positif, 10 negatif). Test negatif membuktikan database menolak operasi tidak sah DAN tidak meninggalkan data separuh. Belum diuji di SQL Server.',
+    note: 'Terverifikasi di MariaDB 10.4.32 dan lewat GitHub Actions (MySQL 8): 20 test lulus (10 positif, 10 negatif). Test negatif membuktikan database menolak operasi tidak sah DAN tidak meninggalkan data separuh. Belum diuji di SQL Server.',
   },
   {
     slug: 'ci4-crud-lab',
@@ -51,7 +51,7 @@ export const learningProjects: LearningProject[] = [
     tech: ['PHP 8.2', 'CodeIgniter 4.7', 'MySQL', 'SQLite', 'PHPUnit 10'],
     status: 'done',
     repo: 'https://github.com/Mubaleghjoss/ci4-crud-lab',
-    note: 'Terverifikasi: 39 test / 88 assertion lulus di PHP 8.2. Termasuk test negatif — data tidak valid ditolak dan database tetap kosong — serta bukti output ter-escape sehingga <script> tidak lolos ke HTML.',
+    note: 'Terverifikasi: 39 test / 88 assertion lulus di PHP 8.2 lokal, dan lewat GitHub Actions pada PHP 8.2 serta 8.3. Termasuk test negatif — data tidak valid ditolak dan database tetap kosong — serta bukti output ter-escape sehingga <script> tidak lolos ke HTML.',
   },
 ];
 
