@@ -7,8 +7,10 @@ const routes = [
   '/projects/',
   '/projects/pkg-mobile-app/',
   '/projects/jaringan-smaafbs/',
+  '/projects/ai-cs-smaafbs/',
   '/cv/developer/',
   '/cv/network-engineer/',
+  '/cv/ai-engineer/',
 ];
 const viewports = [
   { label: 'desktop', width: 1440, height: 1000 },

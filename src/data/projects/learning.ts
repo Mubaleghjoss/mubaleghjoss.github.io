@@ -66,6 +66,35 @@ export const learningProjects: LearningProject[] = [
     repo: 'https://github.com/Mubaleghjoss/ci4-crud-lab',
     note: 'Terverifikasi: 39 test / 88 assertion lulus di PHP 8.2 lokal serta GitHub Actions (PHP 8.2 dan 8.3), termasuk test negatif.',
   },
+  {
+    slug: 'ai-engineering-lab',
+    name: 'AI Engineering Lab',
+    positioning: 'Pengukuran perilaku sistem LLM',
+    goal: 'Mengubah pagar prompt yang dipakai di produksi menjadi kasus uji terukur, sehingga perubahan prompt bisa diuji regresi, bukan ditebak.',
+    summary:
+      'Empat lab Python: evaluasi guardrail 33 kasus, baseline retrieval BM25, benchmark gateway, dan keluaran JSON tervalidasi schema.',
+    highlights: [
+      'Penilai deterministik, bukan LLM sebagai juri, agar hasilnya bisa diulang dan diperdebatkan berdasarkan aturan.',
+      'Baseline retrieval dilaporkan apa adanya: recall@3 73,3 persen, MRR 0,700, dan empat kueri gagal ikut dicatat.',
+      'Klien HTTP tanpa SDK vendor, sehingga retry, timeout, dan galat provider bisa diuji langsung.',
+      'Keluaran JSON diperbaiki dengan umpan balik kesalahan spesifik dan dibatasi jumlah percobaan.',
+    ],
+    covers: [
+      'LLM Evaluation Harness',
+      'Prompt Guardrail Testing',
+      'Anti-Prompt Injection Test',
+      'Retrieval BM25 & Chunking',
+      'recall@k & MRR',
+      'JSON Schema Validation',
+      'Structured Output Retry',
+      'Provider Error Handling',
+      'pytest tanpa jaringan',
+    ],
+    tech: ['Python 3.11+', 'pytest', 'jsonschema', 'PyYAML', 'GitHub Actions'],
+    status: 'in-progress',
+    repo: 'https://github.com/Mubaleghjoss/ai-engineering-lab',
+    note: 'Terverifikasi: 114 test lulus di Python 3.12 lokal, seluruhnya tanpa jaringan dan tanpa kunci API. Korpus dan konteks memakai data karangan; lab benchmark masih menunggu pengukuran lintas model.',
+  },
 ];
 
 export const learningProjectBySlug = Object.fromEntries(

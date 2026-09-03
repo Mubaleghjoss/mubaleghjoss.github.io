@@ -1,12 +1,14 @@
 
 import { chromium } from 'playwright';
 
-const base = process.env.BASE_URL ?? 'http://127.0.0.1:4321';
+// Default memakai nama host, bukan 127.0.0.1: `astro preview` pada mesin ini
+// hanya mengikat IPv6 (::1) sehingga alamat IPv4 literal ditolak.
+const base = process.env.BASE_URL ?? 'http://localhost:4321';
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
 let fail = 0;
 
-for (const route of ['/cv/developer/', '/cv/network-engineer/', '/cv/it-support/', '/cv/general/']) {
+for (const route of ['/cv/developer/', '/cv/network-engineer/', '/cv/ai-engineer/', '/cv/it-support/', '/cv/general/']) {
   await page.goto(base + route, { waitUntil: 'networkidle' });
   const info = await page.evaluate(() => {
     const items = [...document.querySelectorAll('.cv-switch-item')].map((el) => ({
@@ -30,6 +32,13 @@ for (const route of ['/cv/developer/', '/cv/network-engineer/', '/cv/it-support/
       items,
       worst,
       overflow: de.scrollWidth > de.clientWidth + 1,
+      // `.cv-skill-item` memakai white-space: nowrap, jadi satu item yang terlalu
+      // panjang akan mendorong lebar halaman. Dicek per item agar pesan gagalnya
+      // menyebut item mana yang harus dipecah, bukan hanya "overflow".
+      wideSkillItems: [...document.querySelectorAll('.cv-skill-item')]
+        .map((el) => ({ text: el.textContent.trim(), w: Math.round(el.getBoundingClientRect().width) }))
+        .filter((item) => item.w > de.clientWidth - 60)
+        .slice(0, 5),
       skillLabels: [...document.querySelectorAll('.cv-skill-line strong')].map((el) => el.textContent.trim()),
       headline: document.querySelector('.cv-header .eyebrow')?.textContent.trim(),
       pdfLink: document.querySelector('a[download]')?.getAttribute('href'),
@@ -39,12 +48,16 @@ for (const route of ['/cv/developer/', '/cv/network-engineer/', '/cv/it-support/
   const okActive = activeCount === 1 && info.items.find((i) => i.active)?.href === route;
   const okTouch = info.items.every((i) => i.h >= 28);
   const okLines = info.worst.every((w) => w.lines <= 4);
-  if (!okActive || !okTouch || !okLines || info.overflow) fail++;
-  console.log(`${okActive && okTouch && okLines && !info.overflow ? 'PASS' : 'FAIL'} ${route}`);
+  const okSkillWidth = info.wideSkillItems.length === 0;
+  if (!okActive || !okTouch || !okLines || info.overflow || !okSkillWidth) fail++;
+  console.log(`${okActive && okTouch && okLines && !info.overflow && okSkillWidth ? 'PASS' : 'FAIL'} ${route}`);
   console.log(`   headline="${info.headline}" pdf=${info.pdfLink} overflow=${info.overflow}`);
   console.log(`   switch=${info.items.map((i) => i.text + (i.active ? '*' : '')).join(' | ')} tinggi=${info.items.map((i)=>i.h).join(',')}`);
   console.log(`   keahlian=${info.skillLabels.join(' / ')}`);
   console.log(`   butir-terpanjang=${info.worst.map((w) => w.lines + ' baris: ' + w.text).join(' || ')}`);
+  if (!okSkillWidth) {
+    console.log(`   item-skill-terlalu-lebar=${info.wideSkillItems.map((i) => i.w + 'px: ' + i.text).join(' || ')}`);
+  }
 }
 
 // halaman print tidak boleh menampilkan bar pemilih versi saat dicetak

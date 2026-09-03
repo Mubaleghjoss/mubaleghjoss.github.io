@@ -39,6 +39,8 @@ export const experiences: Experience[] = [
     profileSummary: {
       'network-engineer':
         'Mengelola jaringan dan hotspot sekolah sekaligus membangun sendiri aplikasi yang memantau serta mengendalikan routernya.',
+      'ai-engineer':
+        'Membangun sendiri asisten CS berbasis LLM di situs sekolah, dari perancangan pagar prompt sampai integrasi data resmi.',
     },
     profileBullets: {
       'network-engineer': [
@@ -49,8 +51,16 @@ export const experiences: Experience[] = [
         'Menerapkan penyaringan konten berlapis: address-list, aturan TLS/SNI, dan penguncian DNS agar tidak dapat dilewati Private DNS.',
         'Menangani gangguan jaringan harian dan menuliskan panduan agar operator lain dapat melanjutkan.',
       ],
+      'ai-engineer': [
+        'Membangun asisten CS berbasis LLM pada situs sekolah: lima kelas layanan Laravel, 873 baris, plus 42 metode test fitur.',
+        'Menyusun system prompt berpagar delapan aturan: batas topik, anti-halusinasi, anti prompt injection, privasi, eskalasi.',
+        'Merakit konteks dari delapan bagian data sekolah dan data akademik live agar jawaban tidak keluar dari sumber resmi.',
+        'Memisahkan lapisan provider: jalur Gemini dan jalur OpenAI-compatible, model dan base URL disunting dari panel admin.',
+        'Menyalurkan jawaban lewat Server-Sent Events beserta parser cadangan untuk provider yang tidak patuh spesifikasi.',
+        'Menyediakan eskalasi ke WhatsApp admin dan pemangkasan data sesi berkala lewat perintah terjadwal.',
+      ],
     },
-    cvProfiles: ['developer', 'network-engineer', 'it-support', 'general'],
+    cvProfiles: ['developer', 'network-engineer', 'ai-engineer', 'it-support', 'general'],
   },
   {
     role: 'Pengembang Aplikasi (Pribadi/Kontribusi Lembaga)',

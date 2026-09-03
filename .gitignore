@@ -30,3 +30,6 @@ desktop.ini
 # logs
 npm-debug.log*
 *.log
+
+# catatan kerja internal (rancangan/plan agen, bukan bagian situs)
+.hermes/

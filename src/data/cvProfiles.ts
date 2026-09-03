@@ -80,6 +80,28 @@ export const cvProfiles: CvProfile[] = [
     showAdditionalSkills: true,
   },
   {
+    id: 'ai-engineer',
+    label: 'AI Engineer',
+    headline: 'AI Engineer (Aplikasi LLM) & Full-Stack Developer',
+    summary:
+      'Pengembang yang membangun fitur LLM produksi: prompt berpagar, konteks dari data resmi, dan penanganan galat provider.',
+    summaryPoints: [
+      'Asisten CS berbasis LLM yang berjalan di situs sekolah, dibangun sendiri: 873 baris pada lima kelas layanan Laravel.',
+      'System prompt berpagar delapan aturan: batas topik, anti-halusinasi, anti prompt injection, privasi, dan eskalasi.',
+      'Grounding dari sumber resmi: konteks dirakit dari delapan bagian data sekolah plus data akademik live lewat REST API.',
+      'Provider dapat ditukar tanpa rilis ulang: jalur Gemini dan jalur OpenAI-compatible, model dan base URL diatur admin.',
+      'Jawaban dialirkan lewat Server-Sent Events, dengan parser cadangan saat provider mengirim potongan di luar spesifikasi.',
+      'Repo publik ai-engineering-lab: pagar prompt diubah menjadi 33 kasus uji, 114 test lulus tanpa memanggil jaringan.',
+      'Baseline retrieval terukur: recall@3 73,3 persen dan MRR 0,700 atas korpus dummy, dilaporkan apa adanya.',
+      'Alur kerja agen: 116 prosedur skill terpasang, dua server MCP aktif, dan gateway LLM lokal multi-provider.',
+    ],
+    fileName: 'cv-putra-kamulyan-ai-engineer.pdf',
+    skillGroups: ['ai', 'ai-automation', 'backend', 'database', 'tools', 'ai-roadmap'],
+    featuredProjects: ['ai-cs-smaafbs', 'sma-afbs'],
+    showCertifications: false,
+    showAdditionalSkills: true,
+  },
+  {
     id: 'it-support',
     label: 'IT Support',
     headline: 'IT Coordinator & Application Support',

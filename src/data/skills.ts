@@ -10,6 +10,20 @@ import type { SkillGroup } from './types';
  * - network                        : TERVERIFIKASI dari jaringan sekolah yang
  *   dikelola sendiri (7 kelas, MikroTik + switch manageable + AP) dan dari
  *   aplikasi pemantau router yang dibangun sendiri (mikrotik.smaafbs.sch.id).
+ * - ai                             : TERVERIFIKASI dari asisten CS berbasis LLM
+ *   yang berjalan di situs sekolah (873 baris pada lima kelas layanan Laravel,
+ *   system prompt 8 aturan pagar, konteks dari 8 sumber data, dua jalur
+ *   provider, SSE streaming) dan dari repo publik ai-engineering-lab
+ *   (114 test lulus: guardrail eval, RAG baseline, structured output).
+ * - ai-automation                  : TERVERIFIKASI dari 116 SKILL.md prosedur
+ *   agen terpasang, 2 server MCP aktif, gateway LLM lokal multi-provider yang
+ *   dioperasikan sendiri, dan pipeline media Python 1.252 baris dengan
+ *   faster-whisper 1.2.1. Catatan kejujuran: gateway DIOPERASIKAN, bukan
+ *   dibangun; MCP DIPAKAI, server MCP sendiri belum dibangun.
+ * - ai-roadmap                     : BELUM dikuasai. Rencana belajar, dipisah
+ *   tegas agar tidak terbaca sebagai pengalaman. Tool calling, vector database,
+ *   MCP server sendiri, observability, dan token/cost tracking ada di sini
+ *   justru karena belum ada implementasi nyatanya.
  * - network-roadmap                : BELUM dikuasai. Ini rencana belajar dan
  *   sertifikasi, dipisahkan tegas agar tidak terbaca sebagai pengalaman.
  * - learning                       : dibuktikan lewat repo lab sendiri
@@ -20,6 +34,12 @@ import type { SkillGroup } from './types';
  *
  * Urutan array = urutan tampil. Grup `subdued` diletakkan di akhir karena
  * halaman landing menampilkannya sebagai blok terpisah "status transparan".
+ *
+ * BATAS PANJANG ITEM: `.cv-skill-item` memakai `white-space: nowrap`, sehingga
+ * satu item yang terlalu panjang tidak dapat dipecah dan akan mendorong lebar
+ * halaman melebihi layar 390px. Jaga tiap item di bawah ~34 karakter; bila
+ * butuh lebih panjang, pecah menjadi dua item. Gate `npm run verify:browser`
+ * menangkap pelanggaran ini sebagai `overflow=true` pada viewport mobile.
  */
 export const skillGroups: SkillGroup[] = [
   {
@@ -117,10 +137,50 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
+    id: 'ai',
+    label: 'AI Application Engineering',
+    cvLabel: 'AI & LLM',
+    order: 6,
+    items: [
+      'LLM API Integration',
+      'Gemini & OpenAI-compatible API',
+      'Prompt Engineering',
+      'AI Guardrails',
+      'Anti-Prompt Injection',
+      'Grounded Context Assembly',
+      'Server-Sent Events (streaming)',
+      'LLM Session & State Management',
+      'Human-in-the-loop Handoff',
+      'Provider-agnostic Integration',
+      'Provider Fallback & Error Handling',
+      'LLM Evaluation Harness',
+      'Structured Output (JSON Schema)',
+      'Retrieval & Chunking (BM25)',
+    ],
+  },
+  {
+    id: 'ai-automation',
+    label: 'Agentic AI & Automation',
+    cvLabel: 'Agentic AI & Automation',
+    order: 7,
+    items: [
+      'Agentic Development Workflows',
+      'MCP-based Tool Integration',
+      'AI Agent Skills / Procedures',
+      'Context-aware Agent Workflows',
+      'Multi-model Routing (LLM Gateway)',
+      'AI-assisted Software Development',
+      'Python Automation',
+      'Speech-to-Text (faster-whisper)',
+      'Automated Media Pipeline',
+      'LLM-assisted Workflow Automation',
+    ],
+  },
+  {
     id: 'tools',
     label: 'Tools & Workflow',
     cvLabel: 'Tools',
-    order: 6,
+    order: 8,
     items: [
       'Git',
       'GitHub',
@@ -133,27 +193,27 @@ export const skillGroups: SkillGroup[] = [
       'Deployment (cPanel & SSH)',
       'Technical Documentation',
       'PHPUnit',
+      'pytest',
     ],
   },
   {
     id: 'additional',
     label: 'Additional Skills',
     cvLabel: 'Additional Skills',
-    order: 7,
+    order: 9,
     subdued: true,
     items: [
       'Linux Server',
       'VPS',
       'Cloudflare',
       'Dapodik / Data Pokok Pendidikan',
-      'AI-assisted Development',
     ],
   },
   {
     id: 'network-roadmap',
     label: 'Rencana Belajar Jaringan',
     cvLabel: 'Rencana Belajar',
-    order: 8,
+    order: 10,
     subdued: true,
     items: [
       'Cisco CCNA (200-301)',
@@ -171,10 +231,29 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
+    id: 'ai-roadmap',
+    label: 'Rencana Belajar AI & Agentic',
+    cvLabel: 'Rencana Belajar AI',
+    order: 11,
+    subdued: true,
+    items: [
+      'Tool Calling / Function Calling',
+      'Embeddings & Vector Database',
+      'pgvector & Qdrant',
+      'Agent Memory Jangka Panjang',
+      'MCP Server Buatan Sendiri',
+      'Observability & Tracing LLM',
+      'Token Telemetry & Cost Tracking',
+      'Multi-step Agent Orchestration',
+      'Multi-agent Workflow',
+      'Local Inference & Fine-tuning',
+    ],
+  },
+  {
     id: 'learning',
     label: 'Sedang Dipelajari',
     cvLabel: 'Sedang Dipelajari',
-    order: 9,
+    order: 12,
     subdued: true,
     items: [
       'Microsoft SQL Server',

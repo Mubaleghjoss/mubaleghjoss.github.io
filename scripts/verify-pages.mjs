@@ -1,17 +1,23 @@
 import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 
-const baseURL = process.env.BASE_URL ?? 'http://127.0.0.1:4321';
+// `astro preview` mengikat ke localhost dan pada mesin ini hanya menyediakan
+// IPv6 (::1), sehingga default ke 127.0.0.1 ditolak dengan ERR_CONNECTION_REFUSED.
+// Memakai nama host membuat resolusi IPv4/IPv6 ditentukan sistem.
+const baseURL = process.env.BASE_URL ?? 'http://localhost:4321';
 const routes = [
   '/',
   '/projects/',
   '/projects/sma-afbs/',
   '/projects/pkg-mobile-app/',
   '/projects/jaringan-smaafbs/',
+  '/projects/ai-cs-smaafbs/',
   '/cv/developer/',
   '/cv/developer/print/',
   '/cv/network-engineer/',
   '/cv/network-engineer/print/',
+  '/cv/ai-engineer/',
+  '/cv/ai-engineer/print/',
 ];
 const viewports = [
   { label: 'desktop', width: 1440, height: 1000 },

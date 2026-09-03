@@ -1,6 +1,7 @@
 export type CvProfileId =
   | 'developer'
   | 'network-engineer'
+  | 'ai-engineer'
   | 'it-support'
   | 'general';
 
@@ -32,6 +33,9 @@ export type SkillGroupId =
   | 'mobile'
   | 'network'
   | 'network-roadmap'
+  | 'ai'
+  | 'ai-automation'
+  | 'ai-roadmap'
   | 'tools'
   | 'additional'
   | 'learning';

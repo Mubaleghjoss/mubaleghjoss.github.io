@@ -3,6 +3,7 @@ import { smaAfbs } from './sma-afbs';
 import { pkgPanunggangan } from './pkg-panunggangan';
 import { pkgMobileApp } from './pkg-mobile-app';
 import { jaringanSmaAfbs } from './jaringan-smaafbs';
+import { aiCsSmaAfbs } from './ai-cs-smaafbs';
 
 export { learningProjects, learningProjectBySlug } from './learning';
 
@@ -11,6 +12,7 @@ export const projects: Project[] = [
   pkgPanunggangan,
   pkgMobileApp,
   jaringanSmaAfbs,
+  aiCsSmaAfbs,
 ].sort((a, b) => a.order - b.order);
 
 export const featuredProjects = projects.filter((p) => p.featured);

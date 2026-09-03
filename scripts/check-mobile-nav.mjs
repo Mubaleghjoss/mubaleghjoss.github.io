@@ -1,11 +1,12 @@
 /**
  * Memastikan bar navigasi pada tampilan ponsel benar-benar punya warna/tanda,
  * bukan sekadar putih polos, dan item halaman aktif diberi penanda.
- * Dijalankan terhadap `npm run preview` di 127.0.0.1:4321.
+ * Dijalankan terhadap `npm run preview`. Default memakai nama host, bukan
+ * 127.0.0.1, karena preview pada mesin ini hanya mengikat IPv6 (::1).
  */
 import { chromium } from 'playwright';
 
-const baseURL = process.env.BASE_URL ?? 'http://127.0.0.1:4321';
+const baseURL = process.env.BASE_URL ?? 'http://localhost:4321';
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
 let failures = 0;
