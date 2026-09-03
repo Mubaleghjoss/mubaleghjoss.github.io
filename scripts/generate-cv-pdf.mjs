@@ -1,15 +1,35 @@
 import http from 'node:http';
-import { createReadStream, existsSync, mkdirSync, readFileSync, statSync } from 'node:fs';
+import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 import { chromium } from 'playwright';
 
 const root = resolve('dist');
 const port = Number(process.env.CV_PDF_PORT ?? 4179);
-const profiles = [
-  ['developer', 'cv-putra-kamulyan-developer.pdf'],
-  ['it-support', 'cv-putra-kamulyan-it-support.pdf'],
-  ['general', 'cv-putra-kamulyan.pdf'],
-];
+
+/**
+ * Daftar profil dibaca dari hasil build, bukan ditulis ulang di sini. Setiap
+ * halaman print menuliskan nama berkas PDF-nya pada <meta name="cv-pdf-filename">
+ * (lihat src/layouts/CVLayout.astro), sehingga menambah profil CV baru cukup
+ * dilakukan di src/data/cvProfiles.ts tanpa menyentuh skrip ini.
+ */
+function discoverProfiles() {
+  const cvDir = join(root, 'cv');
+  if (!existsSync(cvDir)) throw new Error('dist/cv tidak ada. Jalankan `astro build` lebih dulu.');
+  const found = [];
+  for (const entry of readdirSync(cvDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const printPage = join(cvDir, entry.name, 'print', 'index.html');
+    if (!existsSync(printPage)) continue;
+    const html = readFileSync(printPage, 'utf8');
+    const match = html.match(/<meta\s+name="cv-pdf-filename"\s+content="([^"]+)"/);
+    if (!match) throw new Error(`Halaman /cv/${entry.name}/print/ tidak menuliskan meta cv-pdf-filename.`);
+    found.push([entry.name, match[1]]);
+  }
+  if (!found.length) throw new Error('Tidak ada halaman /cv/<profil>/print/ pada hasil build.');
+  return found.sort((a, b) => a[0].localeCompare(b[0]));
+}
+
+const profiles = discoverProfiles();
 
 const types = {
   '.css': 'text/css; charset=utf-8',
@@ -54,6 +74,21 @@ function pageCount(file) {
   return [...bytes.matchAll(/\/Type\s*\/Page[^s]/g)].length;
 }
 
+/**
+ * Semua teks CV harus tercetak dengan Inter yang dibundel. Bila ada glyph yang
+ * tidak dimiliki Inter (mis. tanda panah "→"), Chromium diam-diam menambal
+ * dengan font sistem — hasilnya berbeda antara Windows dan runner Linux, dan
+ * pemindai ATS bisa membacanya sebagai karakter tak dikenal. Jadi PDF ditolak
+ * bila memuat font di luar Inter.
+ */
+function foreignFonts(file) {
+  const bytes = readFileSync(file).toString('latin1');
+  const names = [...bytes.matchAll(/\/BaseFont\s*\/([A-Za-z0-9+\-_,.]+)/g)].map((m) =>
+    m[1].replace(/^[A-Z]{6}\+/, ''),
+  );
+  return [...new Set(names)].filter((name) => !name.startsWith('Inter-'));
+}
+
 try {
   for (const [profile, fileName] of profiles) {
     const page = await browser.newPage();
@@ -79,7 +114,14 @@ try {
     if (pages > maxPages) {
       throw new Error(`CV ${fileName} jadi ${pages} halaman, maksimal ${maxPages}.`);
     }
-    console.log(`PDF dibuat: dist/cv/${fileName} (${pages} halaman)`);
+    const foreign = foreignFonts(output);
+    if (foreign.length) {
+      throw new Error(
+        `CV ${fileName} memakai font di luar Inter: ${foreign.join(', ')}. ` +
+          'Ganti karakter yang tidak dimiliki Inter (mis. "→" jadi ">").',
+      );
+    }
+    console.log(`PDF dibuat: dist/cv/${fileName} (${pages} halaman, font Inter saja)`);
   }
 } finally {
   await browser.close();

@@ -10,10 +10,11 @@ export const experiences: Experience[] = [
     summary:
       'Memimpin tim IT sekolah, mengelola data pokok pendidikan, dan membangun sendiri ekosistem aplikasi yang dipakai lintas unit sekolah.',
     bullets: [
-      'Menganalisis kebutuhan bersama guru, wali kelas, dan bagian kurikulum, lalu menerjemahkannya menjadi spesifikasi fitur dan rancangan basis data.',
-      'Membangun aplikasi akademik dan administrasi berbasis Laravel + Filament: data induk siswa dan guru, rombongan belajar, mata pelajaran, skema penilaian, input nilai, rekap wali kelas, sampai cetak rapor PDF.',
+      'Menganalisis kebutuhan bersama guru, wali kelas, dan bagian kurikulum, lalu menyusun spesifikasi fitur dan rancangan basis data.',
+      'Membangun aplikasi akademik dan administrasi berbasis Laravel + Filament: data induk siswa, guru, rombongan belajar, dan mata pelajaran.',
+      'Membangun alur penilaian sampai pelaporan: skema penilaian, input nilai, rekap wali kelas, dan cetak rapor PDF.',
       'Merancang skema database relasional MySQL beserta migration, relasi, dan indeks untuk data akademik multi-periode.',
-      'Membangun REST API untuk integrasi antaraplikasi sekolah (tagihan, sinkronisasi data siswa, monitoring layanan) dengan verifikasi tanda tangan permintaan.',
+      'Membangun REST API untuk integrasi antaraplikasi sekolah dengan verifikasi tanda tangan permintaan.',
       'Menerapkan hak akses berbasis peran (RBAC) agar setiap peran hanya melihat data yang menjadi tanggung jawabnya.',
       'Melakukan debugging, pengujian otomatis, dan pemeliharaan aplikasi produksi, termasuk penanganan laporan masalah dari pengguna.',
       'Melakukan deployment dan pembaruan aplikasi ke server produksi lewat SSH/cPanel dengan alur rilis yang terdokumentasi.',
@@ -30,7 +31,26 @@ export const experiences: Experience[] = [
       'REST API',
       'Git',
     ],
-    cvProfiles: ['developer', 'it-support', 'general'],
+    /**
+     * CV jaringan menyorot pekerjaan infrastruktur pada peran yang sama.
+     * Isinya hanya hal yang benar-benar dikerjakan; jumlah perangkat selain
+     * 7 ruang kelas tidak dicantumkan karena belum diukur.
+     */
+    profileSummary: {
+      'network-engineer':
+        'Mengelola jaringan dan hotspot sekolah sekaligus membangun sendiri aplikasi yang memantau serta mengendalikan routernya.',
+    },
+    profileBullets: {
+      'network-engineer': [
+        'Merancang dan mengelola jaringan tujuh ruang kelas: ISP > MikroTik > switch manageable > router mode AP, seluruh jalur utama gigabit.',
+        'Menarik dan menerminasi kabel Cat 6 ke ruang kelas, lalu menguji setiap jalur sebelum dipakai.',
+        'Mengonfigurasi RouterOS: DHCP, IP statis perangkat penting, hotspot, grup bandwidth, dan aturan firewall.',
+        'Membangun aplikasi pemantau router beserta klien RouterOS API di atas socket PHP, tanpa library pihak ketiga.',
+        'Menerapkan penyaringan konten berlapis: address-list, aturan TLS/SNI, dan penguncian DNS agar tidak dapat dilewati Private DNS.',
+        'Menangani gangguan jaringan harian dan menuliskan panduan agar operator lain dapat melanjutkan.',
+      ],
+    },
+    cvProfiles: ['developer', 'network-engineer', 'it-support', 'general'],
   },
   {
     role: 'Pengembang Aplikasi (Pribadi/Kontribusi Lembaga)',

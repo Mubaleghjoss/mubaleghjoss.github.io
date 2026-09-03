@@ -1,4 +1,8 @@
-export type CvProfileId = 'developer' | 'it-support' | 'general';
+export type CvProfileId =
+  | 'developer'
+  | 'network-engineer'
+  | 'it-support'
+  | 'general';
 
 export type Profile = {
   name: string;
@@ -26,6 +30,8 @@ export type SkillGroupId =
   | 'frontend'
   | 'database'
   | 'mobile'
+  | 'network'
+  | 'network-roadmap'
   | 'tools'
   | 'additional'
   | 'learning';
@@ -47,6 +53,18 @@ export type Experience = {
   end: string;
   summary?: string;
   bullets: string[];
+  /**
+   * Ringkasan pengganti untuk profil CV tertentu, dipakai bersama
+   * `profileBullets` agar satu peran nyata bisa disorot sesuai sasaran CV.
+   */
+  profileSummary?: Partial<Record<CvProfileId, string>>;
+  /**
+   * Butir pengganti untuk profil CV tertentu. Pekerjaan yang sama bisa perlu
+   * disorot berbeda: CV jaringan tidak butuh butir soal Filament, dan CV
+   * developer tidak butuh butir soal terminasi kabel. Bila sebuah profil tidak
+   * punya entri di sini, `bullets` yang dipakai.
+   */
+  profileBullets?: Partial<Record<CvProfileId, string[]>>;
   tech?: string[];
   cvProfiles: CvProfileId[];
 };

@@ -9,12 +9,22 @@ export function getStaticPaths() {
 const { cvProfile } = Astro.props;
 ---
 <CVLayout title={`CV ${cvProfile.label} — Putra Kamulyan`}>
-  <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line)">
+  <div class="no-print cv-bar">
     <a href="/">← Portfolio</a>
-    <div style="display: flex; gap: .7rem; flex-wrap: wrap; align-items: center">
+    <div class="cv-bar-actions">
       <a href={`/cv/${cvProfile.fileName}`} download>Unduh PDF</a>
       <button class="button" type="button" onclick="window.print()">Cetak</button>
     </div>
+  </div>
+  <div class="no-print cv-switch" role="group" aria-label="Pilih versi CV">
+    <span class="cv-switch-label">Versi CV</span>
+    {cvProfiles.map((item) => (
+      <a
+        class:list={['cv-switch-item', item.id === cvProfile.id && 'is-active']}
+        href={`/cv/${item.id}/`}
+        aria-current={item.id === cvProfile.id ? 'page' : undefined}
+      >{item.label}</a>
+    ))}
   </div>
   <CVDocument cvProfile={cvProfile} />
 </CVLayout>

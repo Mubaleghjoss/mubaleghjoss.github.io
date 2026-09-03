@@ -2,12 +2,16 @@ import type { MiniProject, Project } from '../types';
 import { smaAfbs } from './sma-afbs';
 import { pkgPanunggangan } from './pkg-panunggangan';
 import { pkgMobileApp } from './pkg-mobile-app';
+import { jaringanSmaAfbs } from './jaringan-smaafbs';
 
 export { learningProjects, learningProjectBySlug } from './learning';
 
-export const projects: Project[] = [smaAfbs, pkgPanunggangan, pkgMobileApp].sort(
-  (a, b) => a.order - b.order,
-);
+export const projects: Project[] = [
+  smaAfbs,
+  pkgPanunggangan,
+  pkgMobileApp,
+  jaringanSmaAfbs,
+].sort((a, b) => a.order - b.order);
 
 export const featuredProjects = projects.filter((p) => p.featured);
 

@@ -3,8 +3,14 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  /**
+   * Nama berkas PDF untuk halaman print. Ditulis sebagai meta tag supaya
+   * `scripts/generate-cv-pdf.mjs` membacanya dari hasil build, bukan menyimpan
+   * daftar profil sendiri yang harus diperbarui manual tiap ada profil baru.
+   */
+  pdfFileName?: string;
 }
-const { title } = Astro.props;
+const { title, pdfFileName } = Astro.props;
 ---
 <!doctype html>
 <html lang="id">
@@ -12,6 +18,7 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex" />
+    {pdfFileName && <meta name="cv-pdf-filename" content={pdfFileName} />}
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>

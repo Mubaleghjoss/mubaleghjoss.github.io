@@ -7,6 +7,11 @@ const { cvProfile } = Astro.props;
 const selectedSkills = cvProfile.skillGroups.map((id) => skillGroupById[id]);
 const selectedExperience = experiences.filter((item) => item.cvProfiles.includes(cvProfile.id));
 const selectedProjects = cvProfile.featuredProjects.map((slug) => projectBySlug[slug]).filter(Boolean);
+/** Satu peran nyata bisa disorot berbeda per profil CV; lihat `profileBullets`. */
+const summaryFor = (item: (typeof selectedExperience)[number]) =>
+  item.profileSummary?.[cvProfile.id] ?? item.summary;
+const bulletsFor = (item: (typeof selectedExperience)[number]) =>
+  item.profileBullets?.[cvProfile.id] ?? item.bullets;
 const projectTech = (project: (typeof selectedProjects)[number]) =>
   project.tech
     .flatMap((section) => section.items)
@@ -28,6 +33,6 @@ const projectTech = (project: (typeof selectedProjects)[number]) =>
 </header>
 <section class="cv-section"><h2>Profil</h2><p>{cvProfile.summary}</p><ul class="cv-list">{cvProfile.summaryPoints.map((point) => <li>{point}</li>)}</ul></section>
 <section class="cv-section"><h2>Keahlian</h2>{selectedSkills.map((group) => <div class="cv-skill-line"><strong>{group.cvLabel}:</strong> <span class="cv-skill-items">{group.items.map((item) => <span class="cv-skill-item">{item}</span>)}</span></div>)}</section>
-<section class="cv-section"><h2>Pengalaman</h2>{selectedExperience.map((item) => <article class="cv-entry"><h3>{item.role} — {item.organization}</h3><p class="meta">{item.location} · {item.start}–{item.end}</p>{item.summary && <p>{item.summary}</p>}<ul>{item.bullets.slice(0, 5).map((bullet) => <li>{bullet}</li>)}</ul></article>)}</section>
+<section class="cv-section"><h2>Pengalaman</h2>{selectedExperience.map((item) => <article class="cv-entry"><h3>{item.role} — {item.organization}</h3><p class="meta">{item.location} · {item.start}–{item.end}</p>{summaryFor(item) && <p>{summaryFor(item)}</p>}<ul>{bulletsFor(item).slice(0, 6).map((bullet) => <li>{bullet}</li>)}</ul></article>)}</section>
 <section class="cv-section"><h2>Project Terpilih</h2>{selectedProjects.map((item) => <article class="cv-entry"><h3>{item.name}</h3><p class="meta">{item.positioning} · {item.period}</p><ul>{item.cvPoints.map((point) => <li>{point}</li>)}</ul><p class="cv-skill-line"><strong>Teknologi utama:</strong> {projectTech(item).join(' · ')}</p></article>)}</section>
 <section class="cv-section"><h2>Pendidikan</h2>{education.map((item) => <article class="cv-entry"><h3>{item.degree} {item.field && `— ${item.field}`}</h3><p class="meta">{item.institution} · {item.start}–{item.end}</p></article>)}</section>

@@ -1,8 +1,18 @@
 import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 
-const baseURL = 'http://127.0.0.1:4321';
-const routes = ['/', '/projects/', '/projects/sma-afbs/', '/projects/pkg-mobile-app/', '/cv/developer/', '/cv/developer/print/'];
+const baseURL = process.env.BASE_URL ?? 'http://127.0.0.1:4321';
+const routes = [
+  '/',
+  '/projects/',
+  '/projects/sma-afbs/',
+  '/projects/pkg-mobile-app/',
+  '/projects/jaringan-smaafbs/',
+  '/cv/developer/',
+  '/cv/developer/print/',
+  '/cv/network-engineer/',
+  '/cv/network-engineer/print/',
+];
 const viewports = [
   { label: 'desktop', width: 1440, height: 1000 },
   { label: 'mobile', width: 390, height: 844 },

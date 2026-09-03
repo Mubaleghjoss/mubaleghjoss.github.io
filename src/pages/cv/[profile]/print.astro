@@ -8,6 +8,6 @@ export function getStaticPaths() {
 }
 const { cvProfile } = Astro.props;
 ---
-<CVLayout title={`CV ${cvProfile.label} — Putra Kamulyan`}>
+<CVLayout title={`CV ${cvProfile.label} — Putra Kamulyan`} pdfFileName={cvProfile.fileName}>
   <CVDocument cvProfile={cvProfile} />
 </CVLayout>

@@ -1,16 +1,16 @@
 # Portfolio — Putra Kamulyan
 
-Situs portfolio statis dan CV online untuk Putra Kamulyan, Full-Stack Web & Mobile Developer. Dibangun dengan Astro, TypeScript, dan Tailwind CSS.
+Situs portfolio statis dan CV online untuk Putra Kamulyan, Full-Stack Web & Mobile Developer yang juga mengelola jaringan sekolah. Dibangun dengan Astro, TypeScript, dan Tailwind CSS.
 
 Tujuan repo ini adalah menyajikan bukti kerja secara jujur: case study aplikasi yang dibangun, project lab yang dibedakan tegas dari pengalaman produksi, serta CV yang dihasilkan dari data yang sama.
 
 ## Fitur
 
 - Landing page responsif, SEO dasar, dan data `Person` Schema.org.
-- Case study project: SMA AFBS Digital Ecosystem, PKG Panunggangan, dan PKGenerus Mobile App.
+- Case study project: SMA AFBS Digital Ecosystem, PKG Panunggangan, PKGenerus Mobile App, dan Jaringan & Hotspot SMA AFBS.
 - Learning project terpisah dan berlabel jelas: SQL Procedures Lab dan CI4 CRUD Lab.
-- Tiga profil CV: Developer, IT Support, dan General.
-- Halaman print serta tiga PDF A4 yang dibuat otomatis saat build.
+- Empat profil CV: Developer, Network Engineer, IT Support, dan General.
+- Halaman print serta empat PDF A4 yang dibuat otomatis saat build.
 - GitHub Actions untuk memeriksa tipe, membangun situs, menghasilkan PDF, dan deploy ke GitHub Pages.
 
 ## Satu sumber data
@@ -32,7 +32,17 @@ Halaman ini dirancang untuk dipindai, bukan dibaca sebagai esai. Karena itu:
 
 - Field bertipe array (`workingStyle`, `summaryPoints`, `highlights`, `bullets`, `problem`, `solution`, `results`) dirender sebagai daftar berbutir. Tambah butir baru, jangan menyambung kalimat ke butir yang sudah ada.
 - Field bertipe string (`heroLead`, `summary`) cukup satu sampai dua kalimat. Bila isinya bertambah panjang, pindahkan detailnya menjadi butir baru pada array pasangannya.
-- Satu butir = satu gagasan, idealnya di bawah 140 karakter agar tidak melipat menjadi tiga baris pada ponsel.
+- Satu butir = satu gagasan, idealnya di bawah 140 karakter agar tidak melipat menjadi tiga baris pada ponsel. `npm run verify:cv` menolak butir yang melipat lebih dari empat baris pada layar 390px.
+
+### Menambah profil CV baru
+
+Satu peran nyata tidak perlu diduplikasi hanya karena disorot berbeda. Cukup tiga langkah:
+
+1. Tambahkan id baru pada `CvProfileId` di `src/data/types.ts`.
+2. Tambahkan entri pada `src/data/cvProfiles.ts`: `headline`, `summary`, `summaryPoints`, `fileName`, `skillGroups`, dan `featuredProjects`.
+3. Bila peran yang sudah ada perlu disorot berbeda pada profil itu, isi `profileSummary` dan `profileBullets` pada `src/data/experience.ts` — jangan menyalin entri pengalaman.
+
+Rute `/cv/<id>/`, halaman print, PDF, sitemap, pemilih versi di halaman CV, dan tombol pada bagian Kontak semuanya ikut otomatis. Nama berkas PDF dibaca dari `<meta name="cv-pdf-filename">` pada halaman print, jadi `scripts/generate-cv-pdf.mjs` tidak perlu diubah.
 
 ## Cara update
 
@@ -43,12 +53,13 @@ cd E:/xampp/htdocs/mubaleghjoss.github.io
 
 # 1. Ubah isi di src/data/ (lihat tabel di atas)
 
-# 2. Verifikasi: type-check + build + tiga PDF CV
+# 2. Verifikasi: type-check + build + empat PDF CV
 npm run verify
 
 # 3. Opsional, pemeriksaan tampilan di browser sungguhan
 npm run preview -- --host 127.0.0.1 --port 4321   # terminal lain
-npm run verify:browser    # 6 rute, desktop + ponsel 390px
+npm run verify:browser    # 9 rute, desktop + ponsel 390px
+npm run verify:cv         # empat profil CV: pemilih versi, panjang butir, meta PDF
 npm run verify:nav        # bar menu ponsel: warna, item aktif, buka/tutup
 
 # 4. Simpan dan kirim
@@ -97,12 +108,15 @@ Lalu buka URL yang ditampilkan Astro.
 npm run check
 npm run build
 
-# Build statis dan buat tiga PDF CV di dist/cv/
+# Build statis dan buat empat PDF CV di dist/cv/
 npm run cv:pdf
 
 # Verifikasi browser pada preview lokal (desktop dan ponsel)
 npm run preview -- --host 127.0.0.1 --port 4321   # di terminal lain
 npm run verify:browser
+
+# Empat profil CV: pemilih versi aktif, panjang butir di ponsel, meta nama PDF
+npm run verify:cv
 
 # Bar menu pada tampilan ponsel: warna, penanda halaman aktif, buka/tutup
 npm run verify:nav

@@ -19,6 +19,8 @@ const canonical = new URL(path, site.url).toString();
 const ogImage = new URL(profile.photo, site.url).toString();
 /** Nama file PDF diambil dari data CV, bukan ditulis ulang di komponen. */
 const cvPdf = cvProfileById[site.defaultCvProfile].fileName;
+/** Rute CV utama juga mengikuti `site.defaultCvProfile`, jadi tidak ada slug tertanam. */
+const cvHref = `/cv/${site.defaultCvProfile}/`;
 /** Tandai tautan nav yang sedang aktif; CSS sudah menyiapkan gayanya. */
 const isCurrent = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href.split('#')[0]) && href !== '/';
@@ -67,7 +69,7 @@ const isCurrent = (href: string) =>
           <a href="/#tentang">Tentang</a>
           <a href="/#keahlian">Keahlian</a>
           <a href="/projects/" aria-current={isCurrent('/projects/') ? 'page' : undefined}>Project</a>
-          <a href="/cv/developer/" aria-current={isCurrent('/cv/') ? 'page' : undefined}>CV Online</a>
+          <a href={cvHref} aria-current={isCurrent('/cv/') ? 'page' : undefined}>CV Online</a>
           <a href={`/cv/${cvPdf}`} download>Unduh PDF</a>
         </div>
       </nav>

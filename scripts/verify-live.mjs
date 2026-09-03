@@ -1,8 +1,15 @@
 import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 
-const base = 'https://mubaleghjoss.github.io';
-const routes = ['/', '/projects/', '/projects/pkg-mobile-app/', '/cv/developer/'];
+const base = process.env.LIVE_URL ?? 'https://mubaleghjoss.github.io';
+const routes = [
+  '/',
+  '/projects/',
+  '/projects/pkg-mobile-app/',
+  '/projects/jaringan-smaafbs/',
+  '/cv/developer/',
+  '/cv/network-engineer/',
+];
 const viewports = [
   { label: 'desktop', width: 1440, height: 1000 },
   { label: 'mobile', width: 390, height: 844 },
